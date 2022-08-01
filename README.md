@@ -1,5 +1,7 @@
 # AngularTest01
 
+This project is to test using Angular with MSTR REST API.
+
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 14.1.0.
 
 ## Development server

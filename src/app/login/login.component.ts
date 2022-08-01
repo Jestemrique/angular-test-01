@@ -22,6 +22,7 @@ export class LoginComponent implements OnInit {
     deploymentType: '',
     mciType: ''
   };
+  
   subscription!: Subscription ;
 
   constructor(private loginService: LoginService) { }
