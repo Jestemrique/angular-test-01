@@ -62,9 +62,11 @@ export class LoginComponent implements OnInit {
 
   ngOnDestroy(): void{
     //First check if the subscription exists so that we can unsubscribe.
-    if (this.subscription) {
-      this.subscription.unsubscribe();
-    }
+    //Check the "?"
+    this.subscription?.unsubscribe();
+    // if (this.subscription) {
+    //   this.subscription.unsubscribe();
+    // }
   }
 
 }
