@@ -8,7 +8,6 @@ import { ServerInfo } from "./ServerInfo";
     providedIn: 'root'
 })
 export class LoginService {
-    //private mstrUrl = 'http://10.23.3.162:8080/MicroStrategyLibrary/api/status';
     private mstrUrl = 'http://10.23.3.162:8080/MicroStrategyLibrary/api/auth/login';
 
     private userInfo = {
@@ -26,35 +25,35 @@ export class LoginService {
         "numberLocale": "en_us",
         "timeZone": "UTC",
         "applicationType": 35
-      }
-      private httpOptions: any = {
+    }
+    
+    private httpOptions: any = {
         headers: new HttpHeaders({
             'Content-Type': 'application/json',
             'Accept': 'application/json'
         }),
         observe: 'response',
-        //responseType: 'text' as 'text'
         responseType: 'text'
-      };
+    };
 
-    constructor(private http: HttpClient) {}
+    constructor(private http: HttpClient) { }
 
-    getStatus(): Observable<ServerInfo>{
+    getStatus(): Observable<ServerInfo> {
         return this.http.get<ServerInfo>(this.mstrUrl).pipe(
-            tap( 
-                response => { console.log('All', JSON.stringify(response))}
+            tap(
+                response => { console.log('All', JSON.stringify(response)) }
             ),
             catchError(this.handleError)
         );
     }
 
-    doLogin(): Observable<any>{
-        const headers = {'content-type':'application/json', 'accept': 'application/json'};
+    doLogin(): Observable<any> {
+        const headers = { 'content-type': 'application/json', 'accept': 'application/json' };
         const body = JSON.stringify(this.userInfo);
 
-        return this.http.post<any>(this.mstrUrl, body,this.httpOptions)
+        return this.http.post<any>(this.mstrUrl, body, this.httpOptions)
             .pipe(
-                tap( data => console.log('All', 'doLogin method called!')),
+                tap(data => console.log('All', 'doLogin method called!')),
                 catchError(this.handleError)
             );
     }
@@ -64,7 +63,7 @@ export class LoginService {
 
     private handleError(err: HttpErrorResponse) {
         let errorMessage = '';
-        if ( err.error instanceof ErrorEvent) {
+        if (err.error instanceof ErrorEvent) {
             errorMessage = `An error occurred: ${err.error.message}`;
         } else {
             errorMessage = `Server returned code: ${err.status}, error message is: ${err.message}`;
