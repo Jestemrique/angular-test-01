@@ -3,12 +3,25 @@ import { LoginService } from './login.service';
 import { Subscription } from "rxjs";
 import { ServerInfo } from './ServerInfo';
 
+
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit {
+  private _userName: string = '';
+
+  public get userName(): string {
+    return this._userName;
+  }
+
+  public set userName(value: string) {
+    this._userName = value;
+    console.log('In setter:', value);
+  }
+  
+
 
   serverInfo: ServerInfo = {
     upSince: 0,
@@ -37,28 +50,21 @@ export class LoginComponent implements OnInit {
   }
 
   doLogin(): void {
-    console.log("in doLogin()");
     this.subscription = this.loginService.doLogin().subscribe({
       next: response => {
         console.log('Token: ', response.headers.get('X-MSTR-AuthToken'));
       }
-     
     })
-
   }
 
-
-  //method to get status is called in the ngOnInit()
   ngOnInit(): void {
-    // this.subscription = this.loginService.getStatus().subscribe({
-    //   next: serverInfo => {
-    //     this.serverInfo = serverInfo;
-    //   }
-    // })
   }
 
   ngOnDestroy(): void{
-    this.subscription.unsubscribe();
+    //First check if the subscription exists so that we can unsubscribe.
+    if (this.subscription) {
+      this.subscription.unsubscribe();
+    }
   }
 
 }

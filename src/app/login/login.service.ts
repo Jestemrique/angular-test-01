@@ -10,6 +10,23 @@ import { ServerInfo } from "./ServerInfo";
 export class LoginService {
     private mstrUrl = 'http://10.23.3.162:8080/MicroStrategyLibrary/api/auth/login';
 
+    // private userInfo = {
+    //     "username": "administrator",
+    //     "password": "",
+    //     "loginMode": 1,
+    //     "maxSearch": 3,
+    //     "workingSet": 10,
+    //     "changePassword": false,
+    //     "newPassword": "string",
+    //     "metadataLocale": "en_us",
+    //     "warehouseDataLocale": "en_us",
+    //     "displayLocale": "en_us",
+    //     "messagesLocale": "en_us",
+    //     "numberLocale": "en_us",
+    //     "timeZone": "UTC",
+    //     "applicationType": 35
+    // }
+
     private userInfo = {
         "username": "administrator",
         "password": "",
@@ -38,15 +55,6 @@ export class LoginService {
 
     constructor(private http: HttpClient) { }
 
-    getStatus(): Observable<ServerInfo> {
-        return this.http.get<ServerInfo>(this.mstrUrl).pipe(
-            tap(
-                response => { console.log('All', JSON.stringify(response)) }
-            ),
-            catchError(this.handleError)
-        );
-    }
-
     doLogin(): Observable<any> {
         const headers = { 'content-type': 'application/json', 'accept': 'application/json' };
         const body = JSON.stringify(this.userInfo);
@@ -58,8 +66,14 @@ export class LoginService {
             );
     }
 
-
-
+    getStatus(): Observable<ServerInfo> {
+        return this.http.get<ServerInfo>(this.mstrUrl).pipe(
+            tap(
+                response => { console.log('All', JSON.stringify(response)) }
+            ),
+            catchError(this.handleError)
+        );
+    }
 
     private handleError(err: HttpErrorResponse) {
         let errorMessage = '';
