@@ -1,10 +1,11 @@
+<form [formGroup]="loginForm" (ngSubmit)="doLogin(loginForm)">
+
 <div class="field">
     <label class="label">Username</label>
-    <label class="label">{{userName}}</label>
+
     <div class="control has-icons-left has-icons-right">
-        <!-- <input class="input is-success" type="text" placeholder="Text input" value="Username"> -->
-        <input class="input is-success" type="text" placeholder="Text input" value="Username" 
-                [(ngModel)]="userName">
+        <input  formControlName="userNameControl"
+                class="input is-success" type="text" placeholder="Username" >
         <span class="icon is-small is-left">
             <i class="fas fa-user"></i>
         </span>
@@ -16,9 +17,9 @@
 </div>
 
 <div class="field">
-    <label class="label">Email</label>
+    <label class="label">Password</label>
     <div class="control has-icons-left has-icons-right">
-        <input class="input is-danger" type="email" placeholder="Email input" value="email">
+        <input class="input is-danger" type="email" formControlName="passwordControl" placeholder="Password">
         <span class="icon is-small is-left">
             <i class="fas fa-envelope"></i>
         </span>
@@ -31,10 +32,11 @@
 
 <div class="field is-grouped">
     <div class="control">
-        <!-- <button class="button is-link" (click)="getServerInfo()" >Submit</button> -->
-        <button class="button is-link" (click)="doLogin()" >Submit</button>
+        <button class="button is-link" type="submit" [disabled]="loginForm.invalid">Submit</button>
     </div>
     <div class="control">
         <button class="button is-link is-light">Cancel</button>
     </div>
 </div>
+
+</form>

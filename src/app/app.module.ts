@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { FormsModule } from "@angular/forms";
+import {  ReactiveFormsModule } from "@angular/forms";
 
 import { AppComponent } from './app.component';
 import { MainMenuComponent } from './main-menu/main-menu.component';
@@ -19,7 +19,7 @@ import { HttpClientModule } from '@angular/common/http';
   imports: [
     BrowserModule,
     HttpClientModule,
-    FormsModule,
+    ReactiveFormsModule,
     RouterModule.forRoot([
       {path: 'welcome', component: WelcomeComponent},
       {path: 'login', component: LoginComponent},

@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { LoginService } from './login.service';
 import { Subscription } from "rxjs";
 import { ServerInfo } from './ServerInfo';
+import { FormControl, FormGroup } from '@angular/forms';
 
 
 @Component({
@@ -10,17 +11,11 @@ import { ServerInfo } from './ServerInfo';
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit {
-  private _userName: string = '';
 
-  public get userName(): string {
-    return this._userName;
-  }
+  loginForm!: FormGroup;
 
-  public set userName(value: string) {
-    this._userName = value;
-    console.log('In setter:', value);
-  }
-  
+   //userNameControl = new FormControl('');
+   //passwordControl = new FormControl('');
 
 
   serverInfo: ServerInfo = {
@@ -49,7 +44,7 @@ export class LoginComponent implements OnInit {
     })
   }
 
-  doLogin(): void {
+  doLogin(loginForm: FormGroup): void {
     this.subscription = this.loginService.doLogin().subscribe({
       next: response => {
         console.log('Token: ', response.headers.get('X-MSTR-AuthToken'));
@@ -58,6 +53,11 @@ export class LoginComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.loginForm = new FormGroup({
+      userNameControl: new FormControl(''),
+      passwordControl: new FormControl('')
+    });
+
   }
 
   ngOnDestroy(): void{
